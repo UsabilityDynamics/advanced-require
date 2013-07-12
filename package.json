@@ -35,8 +35,9 @@
     "url": "https://github.com/UsabilityDynamics/advanced-require/issues"
   },
   "dependencies": {
-    "abstract": "https://api.github.com/repos/UsabilityDynamics/abstract/tarball",
-    "object-settings": "https://api.github.com/repos/UsabilityDynamics/object-settings/tarball"
+    "abstract": "*",
+    "lodash": "*",
+    "object-settings": "*"
   },
   "devDependencies": {
     "mocha": "*",

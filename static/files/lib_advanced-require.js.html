@@ -97,35 +97,194 @@
  * @date 7/12/13
  * @type {Object}
  */
-require( &#x27;abstract&#x27; ).createModel( function AdvancedRequire( AdvancedRequire, prototype ) {
+require( &#x27;abstract&#x27; ).createModel( function advanced_require( model, prototype ) {
 
   // Model Exposure
-  module.exports = AdvancedRequire;
-  
+  module.exports = model;
+
+  // Configure module
+  model.set( &#x27;create_method&#x27;, &#x27;load&#x27; );
+
   // Model Resources
-  AdvancedRequire.use( require( &#x27;async&#x27; ) );
-  AdvancedRequire.use( require( &#x27;abstract&#x27; ).utility( &#x27;json&#x27;, &#x27;where&#x27; ) );
-  
-  // Model Dynamic Services
-  module.cache = require( &#x27;object-workflow&#x27; ).cache;
-  module.cache = require( &#x27;object-workflow&#x27; ).queue;
-  
+  // model.use( require( &#x27;eventemitter2&#x27; ).EventEmitter2.prototype );
+
   // Properties: Constructor
-  AdvancedRequire.defineProperties( this, {} );
-  
-  // Properties: Instance
-  AdvancedRequire.defineProperties( prototype, {} );
+  model.defineProperties( model, {
+    modules: function() {},
+    files: function() {},
+    monitor: function() {},
+    utility: require( &#x27;abstract&#x27; ).utility,
+    maxListeners: 50,
+    delimiter: &#x27;:&#x27;,
+    wildcard: true,
+    listenerTree: {}
+  });
   
   // Instance Constructor
-  AdvancedRequire.defineInstance( function AdvancedRequireInstance( options ) {   
+  model.defineInstance( function load( dir, opts, depth ) {
     var Instance = this;
 
-    // Instance Resources  
-    AdvancedRequire.use( require( &#x27;abstract&#x27; ).utility( &#x27;where&#x27;, &#x27;if&#x27; ) );
+    depth = depth + 1 || 0;
 
-    // Add Instance to Cache
-    cache.set( Instance.get( &#x27;id&#x27; ), Instance )
-  
+    opts = require( &#x27;abstract&#x27; ).utility.defaults( opts || {}, {
+      &#x27;duplicates&#x27;: false,
+      &#x27;recurse&#x27;: true,
+      &#x27;depth&#x27;: 5,
+      &#x27;ignore&#x27;: [ &#x27;.svn&#x27;, &#x27;.DS_Store&#x27; ],
+      &#x27;extensions&#x27;: Object.keys( require.extensions ),
+      &#x27;logger&#x27;: undefined
+    });
+
+    // Ensure Extensions are Always in Array Form
+    opts.extensions = typeof opts.extensions === &#x27;string&#x27; ? [ opts.extensions ] : opts.extensions;
+    opts.ignore = typeof opts.ignore === &#x27;string&#x27; ? [ opts.ignore ] : opts.ignore;
+
+    var files = [];
+
+    try {
+
+      // resolve the path to an absolute one:
+      dir = require( &#x27;path&#x27; ).resolve( dir );
+      files = require( &#x27;fs&#x27; ).readdirSync( dir );
+
+      if( !files.length ) {
+        throw new Error( &#x27;No files found.&#x27; )
+      }
+
+    } catch( error ) {
+
+      if( error.code === &#x27;ENOENT&#x27; ) {
+
+        if( opts.logger &amp;&amp; opts.logger.error ) {
+          opts.logger.error( error.message );
+        }
+
+        return;
+
+      }
+
+    }
+
+    var filesForBase = {};
+
+    for( var i = 0; i &lt; files.length; i++ ) {
+      var file = files[i];
+
+      var ext = require( &#x27;path&#x27; ).extname( file );
+      var base = require( &#x27;path&#x27; ).basename( file, ext );
+
+      // Only Get Selected File Extensions
+      if( ext &amp;&amp; opts.extensions.indexOf( ext ) &lt; 0 ) {
+        continue;
+      }
+
+      // Explicitly Exclude Specific File Names
+      if( base &amp;&amp; opts.ignore.indexOf( base ) &gt; -1 ) {
+        continue;
+      }
+
+      (filesForBase[base] = filesForBase[base] || []).push( file );
+
+    }
+
+    for( var base in filesForBase ) {
+
+      // protect against enumerable object prototype extensions:
+      if( !filesForBase.hasOwnProperty( base ) ) {
+        continue;
+      }
+
+      var files = filesForBase[base];
+      var filesMinusDirs = {};
+
+      for( var i = 0; i &lt; files.length; i++ ) {
+        var file = files[i];
+        var path = require( &#x27;path&#x27; ).resolve( dir, file );
+
+        if( require( &#x27;fs&#x27; ).statSync( path ).isDirectory() ) {
+
+          if( opts.recurse &amp;&amp; opts.depth &gt;= depth ) {
+
+            Instance[base] = model.load( path, opts, depth );
+
+            // if duplicates are wanted, key off the full name too:
+            if( opts.duplicates ) {
+              Instance[file] = Instance[base];
+            }
+          }
+
+        } else {
+          filesMinusDirs[file] = path;
+        }
+      }
+
+      if( Instance[base] &amp;&amp; !opts.duplicates ) {
+        continue;
+      }
+
+      opts.extensions.forEach( function( ext ) {
+
+        if( !require.extensions.hasOwnProperty( ext ) ) {
+          return;
+        }
+
+        var file = base + ext;
+        var path = filesMinusDirs[file];
+
+        if( path ) {
+
+          if( opts.duplicates ) {
+
+            Instance[file] = require( path );
+
+            if( !Instance[base] ) {
+              Instance[base] = Instance[file];
+            }
+
+          } else {
+
+            try {
+              Instance[base] = require( path );
+
+            } catch ( error ) {
+
+              if( opts.logger &amp;&amp; opts.logger.error ) {
+                opts.logger.error( error, path )
+              }
+
+            }
+
+
+          }
+
+          if( Instance[base] ) {
+
+            Object.defineProperties( Instance[base], {
+              &#x27;__path&#x27;: {
+                &#x27;enumerable&#x27;: false,
+                &#x27;writable&#x27;: true,
+                &#x27;configurable&#x27;: true,
+                &#x27;value&#x27;: require.resolve( path )
+              },
+              &#x27;__directory&#x27;: {
+                &#x27;enumerable&#x27;: false,
+                &#x27;configurable&#x27;: true,
+                &#x27;writable&#x27;: true,
+                &#x27;value&#x27;: require( &#x27;path&#x27; ).dirname( require.resolve( path ) )
+              }
+            });
+
+
+          }
+
+        }
+
+      });
+
+    }
+
+    return Instance;
+
   });
   
 });

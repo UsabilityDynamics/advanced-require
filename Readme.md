@@ -42,9 +42,13 @@ Settings
 --------
 The module settings can be configured via .defaults(), below are the default settings:
 
+  - duplicates: false
+  - recurse: true
+  - depth: 5
   - watch: false
   - extensions: [ 'js', 'json', 'coffee' ]
   - exclude: [ '.svn', '.git' ]
+  - logger: undefined
 
 License
 -------
