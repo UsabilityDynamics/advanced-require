@@ -5,7 +5,7 @@ Latest released version:
 
     npm install advanced-require
 
-Latest dev code:
+Latest devevelopment code code:
 
     npm install https://github.com/UsabilityDynamics/advanced-require/tarball/master
 
