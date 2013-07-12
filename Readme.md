@@ -7,7 +7,7 @@ Latest released version:
 
 Latest dev code:
 
-    npm install https://github.com/UsabilityDynamics/nodeadvanced-require/tarball/master
+    npm install https://github.com/UsabilityDynamics/advanced-require/tarball/master
 
 Methods
 -------
@@ -16,8 +16,8 @@ All "loading" methods will accept a callback function which will be called on ea
 
   - load( path ): Load a module or a directory.
   - modules( path ): Loads all immediate modules within a specified path.
-  - module( path ): Load a single module - if module not found at give path, will traverse up the directory chain until a match is found, or run out of directories.
-
+  - fetch( path ): Finds all immediate modules within a specified path, creates a reference object, but does not require.
+  - module( path ): Load a single module - if module not found at give path will traverse up the directory chain looking for a match.
   - defaults( config ): Configure module settings and default options.
   - on( 'module_id', event ): Emits events when regarding certain modules, as per configuration.
 
