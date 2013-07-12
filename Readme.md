@@ -19,10 +19,11 @@ All "loading" methods will accept a callback function which will be called on ea
   - fetch( path ): Finds all immediate modules within a specified path, creates a reference object, but does not require.
   - module( path ): Load a single module - if module not found at give path will traverse up the directory chain looking for a match.
   - defaults( config ): Configure module settings and default options.
-  - on( 'module_id', event ): Emits events when regarding certain modules, as per configuration.
 
 Events
 ------
+The module emits events when regarding certain modules, as per configuration, if they are watched.
+
   - module:deleted: Module / file has been removed from disk.
   - module:updated: Module has been updated.
   - package:updated: Module's package has been updated.
@@ -36,6 +37,14 @@ Load all modules/files in the parent directory
 ```js
 var module = require( 'advanced-require' ).load( '../' );
 ```
+
+Settings
+--------
+The module settings can be configured via .defaults(), below are the default settings:
+
+  - watch: false
+  - extensions: [ 'js', 'json', 'coffee' ]
+  - exclude: [ '.svn', '.git' ]
 
 License
 -------
