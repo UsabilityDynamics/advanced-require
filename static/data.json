@@ -1,0 +1,45 @@
+{
+    "project": {
+        "name": "advanced-require",
+        "description": "advanced-require",
+        "version": "0.0.1",
+        "url": "https://github.com/UsabilityDynamics/advanced-require",
+        "logo": "http://a3d72a45d111006ec192-ec5b80a12b0b09b4d52373336afb4254.r80.cf1.rackcdn.com/usability-dynamics.png"
+    },
+    "files": {
+        "lib/advanced-require.js": {
+            "name": "lib/advanced-require.js",
+            "modules": {
+                "advanced-require": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "advanced-require": {
+            "name": "advanced-require",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "lib/advanced-require.js",
+            "line": 1,
+            "description": "AdvancedRequire Module\n\n-",
+            "is_constructor": 1,
+            "author": "potanin@UD",
+            "date": "7/12/13",
+            "type": "{Object}"
+        }
+    },
+    "classes": {},
+    "classitems": [],
+    "warnings": [
+        {
+            "message": "unknown tag: date",
+            "line": " lib/advanced-require.js:1"
+        }
+    ]
+}

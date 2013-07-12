@@ -1,0 +1,49 @@
+{
+  "name": "advanced-require",
+  "version": "0.0.1",
+  "description": "Require things in Node.js.",
+  "author": {
+    "name": "Usability Dynamics",
+    "email": "info@usabilitydynamics.com",
+    "url": "http://usabilitydynamics.com"
+  },
+  "contributors": [
+    {
+      "name": "Andy Potanin",
+      "email": "andy.potanin@usabilitydynamics.com",
+      "url": "http://usabilitydynamics.com"
+    },
+    {
+      "name": "Ivan McCarthy",
+      "email": "ivan.mccarthy@usabilitydynamics.com",
+      "url": "http://usabilitydynamics.com"
+    }
+  ],
+  "keywords": [
+    "require",
+    "watch",
+    "load",
+    "fs",
+    "emitter",
+    "events"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UsabilityDynamics/advanced-require.git"
+  },
+  "bugs": {
+    "url": "https://github.com/UsabilityDynamics/advanced-require/issues"
+  },
+  "dependencies": {
+    "abstract": "https://api.github.com/repos/UsabilityDynamics/abstract/tarball",
+    "object-settings": "https://api.github.com/repos/UsabilityDynamics/object-settings/tarball"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "readmeFilename": "Readme.md"
+}
