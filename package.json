@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "abstract": "*",
+    "watch": "*",
     "lodash": "*",
     "object-settings": "*"
   },
