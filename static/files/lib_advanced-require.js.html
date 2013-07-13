@@ -110,14 +110,20 @@ require( &#x27;abstract&#x27; ).createModel( function advanced_require( model, p
 
   // Properties: Constructor
   model.defineProperties( model, {
-    modules: function() {},
-    files: function() {},
-    monitor: function() {},
-    utility: require( &#x27;abstract&#x27; ).utility,
-    maxListeners: 50,
-    delimiter: &#x27;:&#x27;,
-    wildcard: true,
-    listenerTree: {}
+    modules: function( dir, opts ) {
+      return model.load( dir, opts );
+    },
+    files: function() {
+      return model.load( dir, opts );
+    },
+    monitor: function() {
+      return model.load( dir, opts );
+    },
+    utility: require( &#x27;abstract&#x27; ).utility
+    //maxListeners: 50,
+    //delimiter: &#x27;:&#x27;,
+    //wildcard: true,
+    //listenerTree: {}
   });
   
   // Instance Constructor

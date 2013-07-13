@@ -1,3 +1,7 @@
+Advanced Require
+----------------
+Currently in development - use at own risk.
+
 Installing
 ----------
 
