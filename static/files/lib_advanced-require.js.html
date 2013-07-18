@@ -97,49 +97,51 @@
  * @date 7/12/13
  * @type {Object}
  */
-require( &#x27;abstract&#x27; ).createModel( function advanced_require( model, prototype ) {
+require( &#x27;abstract&#x27; ).createModel( module.exports = function advancedRequire( model, prototype ) {
 
-  // Model Exposure
-  module.exports = model;
+  advancedRequire.require( &#x27;util&#x27; );
 
   // Configure module
-  model.set( &#x27;create_method&#x27;, &#x27;load&#x27; );
-
-  // Model Resources
-  // model.use( require( &#x27;eventemitter2&#x27; ).EventEmitter2.prototype );
+  advancedRequire.set( &#x27;create_method&#x27;, &#x27;load&#x27; );
 
   // Properties: Constructor
-  model.defineProperties( model, {
-    modules: function( dir, opts ) {
+  advancedRequire.defineProperties( model, {
+    modules: function modules( dir, opts ) {
       return model.load( dir, opts );
     },
-    files: function() {
+    files: function files() {
       return model.load( dir, opts );
     },
-    monitor: function() {
+    monitor: function monitor() {
       return model.load( dir, opts );
     },
-    utility: require( &#x27;abstract&#x27; ).utility
-    //maxListeners: 50,
-    //delimiter: &#x27;:&#x27;,
-    //wildcard: true,
-    //listenerTree: {}
+    watchTree: function watchTree( root, options, callback ) {
+      return require( &#x27;watch&#x27; ).watchTree( root, options, callback );
+    },
+    createMonitor: function createMonitor( root, options, callback ) {
+      return require( &#x27;watch&#x27; ).createMonitor( root, options, callback );
+    },
   });
-  
+
+  advancedRequire.defineProperties( model.prototype, {
+    
+  });
+
   // Instance Constructor
-  model.defineInstance( function load( dir, opts, depth ) {
+  model.defineConstructor( function load( dir, opts, depth ) {
     var Instance = this;
 
     depth = depth + 1 || 0;
 
-    opts = require( &#x27;abstract&#x27; ).utility.defaults( opts || {}, {
+    opts = advancedRequire._extend({
       &#x27;duplicates&#x27;: false,
       &#x27;recurse&#x27;: true,
+      &#x27;ignoreDotFiles&#x27;: true,
       &#x27;depth&#x27;: 5,
-      &#x27;ignore&#x27;: [ &#x27;.svn&#x27;, &#x27;.DS_Store&#x27; ],
+      &#x27;ignore&#x27;: [ &#x27;.svn&#x27;, &#x27;.git&#x27;, &#x27;.DS_Store&#x27; ],
       &#x27;extensions&#x27;: Object.keys( require.extensions ),
       &#x27;logger&#x27;: undefined
-    });
+    }, opts );
 
     // Ensure Extensions are Always in Array Form
     opts.extensions = typeof opts.extensions === &#x27;string&#x27; ? [ opts.extensions ] : opts.extensions;
@@ -189,7 +191,17 @@ require( &#x27;abstract&#x27; ).createModel( function advanced_require( model, p
         continue;
       }
 
-      (filesForBase[base] = filesForBase[base] || []).push( file );
+      // Skip &quot;dot&quot; files
+      if( opts.ignoreDotFiles &amp;&amp; require( &#x27;path&#x27; ).basename( base )[0] === &#x27;.&#x27; ) {
+        continue;
+      }
+
+      filesForBase[base] = filesForBase[base] || [];
+
+      if( filesForBase[base].push ) {
+        filesForBase[base].push( file );
+
+      }
 
     }
 

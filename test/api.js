@@ -16,7 +16,6 @@ module.exports = {
 
       // Constructor tests
       ar.should.be.a( 'function' );
-      ar.should.have.property( 'utility' );
 
       // Inherited Abstract methods
       ar.should.have.property( 'load' );
@@ -39,6 +38,14 @@ module.exports = {
       instance.should.have.property( 'index' );
       instance.should.have.property( 'package' );
       instance.should.have.property( 'yuidoc' );
+
+    },
+
+    'realpath() joins and resolves': function() {
+
+      // should resolve to /static/assets
+      require( '../' ).realpath( 'static' );
+      require( '../' ).realpath( 'static', 'assets' );
 
     }
 
