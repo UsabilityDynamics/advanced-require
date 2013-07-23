@@ -3,14 +3,18 @@ if (typeof _$jscoverage === 'undefined') _$jscoverage = {};
 if (! _$jscoverage['advanced-require.js']) {
   _$jscoverage['advanced-require.js'] = [];
   _$jscoverage['advanced-require.js'][12] = 0;
-  _$jscoverage['advanced-require.js'][14] = 0;
-  _$jscoverage['advanced-require.js'][17] = 0;
+  _$jscoverage['advanced-require.js'][15] = 0;
+  _$jscoverage['advanced-require.js'][16] = 0;
   _$jscoverage['advanced-require.js'][20] = 0;
+  _$jscoverage['advanced-require.js'][21] = 0;
   _$jscoverage['advanced-require.js'][22] = 0;
+  _$jscoverage['advanced-require.js'][23] = 0;
+  _$jscoverage['advanced-require.js'][24] = 0;
   _$jscoverage['advanced-require.js'][25] = 0;
   _$jscoverage['advanced-require.js'][28] = 0;
   _$jscoverage['advanced-require.js'][31] = 0;
-  _$jscoverage['advanced-require.js'][34] = 0;
+  _$jscoverage['advanced-require.js'][32] = 0;
+  _$jscoverage['advanced-require.js'][35] = 0;
   _$jscoverage['advanced-require.js'][38] = 0;
   _$jscoverage['advanced-require.js'][43] = 0;
   _$jscoverage['advanced-require.js'][44] = 0;
@@ -78,37 +82,44 @@ if (! _$jscoverage['advanced-require.js']) {
 }
 _$jscoverage['advanced-require.js'][12]++;
 require("abstract").createModel(module.exports = (function advancedRequire(model, prototype) {
-  _$jscoverage['advanced-require.js'][14]++;
-  advancedRequire.require("util");
-  _$jscoverage['advanced-require.js'][17]++;
-  advancedRequire.set("create_method", "load");
+  _$jscoverage['advanced-require.js'][15]++;
+  if (module.loaded) {
+    _$jscoverage['advanced-require.js'][16]++;
+    return advancedRequire;
+  }
   _$jscoverage['advanced-require.js'][20]++;
-  advancedRequire.defineProperties(model, {modules: (function modules(dir, opts) {
+  var util = require("util");
+  _$jscoverage['advanced-require.js'][21]++;
+  var inherits = require("util").inherits;
   _$jscoverage['advanced-require.js'][22]++;
-  return model.load(dir, opts);
-}), files: (function files() {
+  var _extend = require("util")._extend;
+  _$jscoverage['advanced-require.js'][23]++;
+  var join_path = require("path").join;
+  _$jscoverage['advanced-require.js'][24]++;
+  var fs = require("fs");
   _$jscoverage['advanced-require.js'][25]++;
-  return model.load(dir, opts);
-}), monitor: (function monitor() {
+  var include = require("include-all");
   _$jscoverage['advanced-require.js'][28]++;
-  return model.load(dir, opts);
-}), watchTree: (function watchTree(root, options, callback) {
+  advancedRequire.defineProperties(model, {include: include, realpath: (function realpath() {
   _$jscoverage['advanced-require.js'][31]++;
+  var _path = arguments.length > 1? join_path.apply({}, arguments): arguments[0];
+  _$jscoverage['advanced-require.js'][32]++;
+  return fs.realpathSync(_path);
+}), watchTree: (function watchTree(root, options, callback) {
+  _$jscoverage['advanced-require.js'][35]++;
   return require("watch").watchTree(root, options, callback);
 }), createMonitor: (function createMonitor(root, options, callback) {
-  _$jscoverage['advanced-require.js'][34]++;
+  _$jscoverage['advanced-require.js'][38]++;
   return require("watch").createMonitor(root, options, callback);
 })});
-  _$jscoverage['advanced-require.js'][38]++;
-  advancedRequire.defineProperties(model.prototype, {});
   _$jscoverage['advanced-require.js'][43]++;
-  model.defineConstructor((function load(dir, opts, depth) {
+  advancedRequire.defineConstructor((function load(dir, opts, depth) {
   _$jscoverage['advanced-require.js'][44]++;
   var Instance = this;
   _$jscoverage['advanced-require.js'][46]++;
   depth = depth + 1 || 0;
   _$jscoverage['advanced-require.js'][48]++;
-  opts = advancedRequire._extend({"duplicates": false, "recurse": true, "ignoreDotFiles": true, "depth": 5, "ignore": [".svn", ".git", ".DS_Store"], "extensions": Object.keys(require.extensions), "logger": undefined}, opts);
+  opts = _extend({"duplicates": false, "recurse": true, "ignoreDotFiles": true, "depth": 5, "ignore": [".svn", ".git", ".DS_Store"], "extensions": Object.keys(require.extensions), "logger": undefined}, opts);
   _$jscoverage['advanced-require.js'][59]++;
   opts.extensions = typeof opts.extensions === "string"? [opts.extensions]: opts.extensions;
   _$jscoverage['advanced-require.js'][60]++;
@@ -261,4 +272,4 @@ require("abstract").createModel(module.exports = (function advancedRequire(model
   return Instance;
 }));
 }));
-_$jscoverage['advanced-require.js'].source = ["/**"," * AdvancedRequire Module"," *"," * -"," *"," * @module advanced-require"," * @constructor"," * @author potanin@UD"," * @date 7/12/13"," * @type {Object}"," */","require( 'abstract' ).createModel( module.exports = function advancedRequire( model, prototype ) {","","  advancedRequire.require( 'util' );","","  // Configure module","  advancedRequire.set( 'create_method', 'load' );","","  // Properties: Constructor","  advancedRequire.defineProperties( model, {","    modules: function modules( dir, opts ) {","      return model.load( dir, opts );","    },","    files: function files() {","      return model.load( dir, opts );","    },","    monitor: function monitor() {","      return model.load( dir, opts );","    },","    watchTree: function watchTree( root, options, callback ) {","      return require( 'watch' ).watchTree( root, options, callback );","    },","    createMonitor: function createMonitor( root, options, callback ) {","      return require( 'watch' ).createMonitor( root, options, callback );","    },","  });","","  advancedRequire.defineProperties( model.prototype, {","    ","  });","","  // Instance Constructor","  model.defineConstructor( function load( dir, opts, depth ) {","    var Instance = this;","","    depth = depth + 1 || 0;","","    opts = advancedRequire._extend({","      'duplicates': false,","      'recurse': true,","      'ignoreDotFiles': true,","      'depth': 5,","      'ignore': [ '.svn', '.git', '.DS_Store' ],","      'extensions': Object.keys( require.extensions ),","      'logger': undefined","    }, opts );","","    // Ensure Extensions are Always in Array Form","    opts.extensions = typeof opts.extensions === 'string' ? [ opts.extensions ] : opts.extensions;","    opts.ignore = typeof opts.ignore === 'string' ? [ opts.ignore ] : opts.ignore;","","    var files = [];","","    try {","","      // resolve the path to an absolute one:","      dir = require( 'path' ).resolve( dir );","      files = require( 'fs' ).readdirSync( dir );","","      if( !files.length ) {","        throw new Error( 'No files found.' )","      }","","    } catch( error ) {","","      if( error.code === 'ENOENT' ) {","","        if( opts.logger &amp;&amp; opts.logger.error ) {","          opts.logger.error( error.message );","        }","","        return;","","      }","","    }","","    var filesForBase = {};","","    for( var i = 0; i &lt; files.length; i++ ) {","      var file = files[i];","","      var ext = require( 'path' ).extname( file );","      var base = require( 'path' ).basename( file, ext );","","      // Only Get Selected File Extensions","      if( ext &amp;&amp; opts.extensions.indexOf( ext ) &lt; 0 ) {","        continue;","      }","","      // Explicitly Exclude Specific File Names","      if( base &amp;&amp; opts.ignore.indexOf( base ) &gt; -1 ) {","        continue;","      }","","      // Skip \"dot\" files","      if( opts.ignoreDotFiles &amp;&amp; require( 'path' ).basename( base )[0] === '.' ) {","        continue;","      }","","      filesForBase[base] = filesForBase[base] || [];","","      if( filesForBase[base].push ) {","        filesForBase[base].push( file );","","      }","","    }","","    for( var base in filesForBase ) {","","      // protect against enumerable object prototype extensions:","      if( !filesForBase.hasOwnProperty( base ) ) {","        continue;","      }","","      var files = filesForBase[base];","      var filesMinusDirs = {};","","      for( var i = 0; i &lt; files.length; i++ ) {","        var file = files[i];","        var path = require( 'path' ).resolve( dir, file );","","        if( require( 'fs' ).statSync( path ).isDirectory() ) {","","          if( opts.recurse &amp;&amp; opts.depth &gt;= depth ) {","","            Instance[base] = model.load( path, opts, depth );","","            // if duplicates are wanted, key off the full name too:","            if( opts.duplicates ) {","              Instance[file] = Instance[base];","            }","          }","","        } else {","          filesMinusDirs[file] = path;","        }","      }","","      if( Instance[base] &amp;&amp; !opts.duplicates ) {","        continue;","      }","","      opts.extensions.forEach( function( ext ) {","","        if( !require.extensions.hasOwnProperty( ext ) ) {","          return;","        }","","        var file = base + ext;","        var path = filesMinusDirs[file];","","        if( path ) {","","          if( opts.duplicates ) {","","            Instance[file] = require( path );","","            if( !Instance[base] ) {","              Instance[base] = Instance[file];","            }","","          } else {","","            try {","              Instance[base] = require( path );","","            } catch ( error ) {","","              if( opts.logger &amp;&amp; opts.logger.error ) {","                opts.logger.error( error, path )","              }","","            }","","","          }","","          if( Instance[base] ) {","","            Object.defineProperties( Instance[base], {","              '__path': {","                'enumerable': false,","                'writable': true,","                'configurable': true,","                'value': require.resolve( path )","              },","              '__directory': {","                'enumerable': false,","                'configurable': true,","                'writable': true,","                'value': require( 'path' ).dirname( require.resolve( path ) )","              }","            });","","","          }","","        }","","      });","","    }","","    return Instance;","","  });","  ","});",""];
+_$jscoverage['advanced-require.js'].source = ["/**"," * AdvancedRequire Module"," *"," * -"," *"," * @module advanced-require"," * @constructor"," * @author potanin@UD"," * @date 7/12/13"," * @type {Object}"," */","require( 'abstract' ).createModel( module.exports = function advancedRequire( model, prototype ) {","","  // Construct Model only once.","  if( module.loaded ) {","    return advancedRequire;","  }","","  // Private Modules.","  var util        = require( 'util' );","  var inherits    = require( 'util' ).inherits;","  var _extend     = require( 'util' )._extend;","  var join_path   = require( 'path' ).join;","  var fs          = require( 'fs' );","  var include     = require( 'include-all' );","","  // Properties: Constructor","  advancedRequire.defineProperties( model, {","    include: include,","    realpath: function realpath() {","      var _path = arguments.length &gt; 1 ? join_path.apply( {}, arguments ) : arguments[0];","      return fs.realpathSync( _path );","    },","    watchTree: function watchTree( root, options, callback ) {","      return require( 'watch' ).watchTree( root, options, callback );","    },","    createMonitor: function createMonitor( root, options, callback ) {","      return require( 'watch' ).createMonitor( root, options, callback );","    },","  });","","  // Instance Constructor","  advancedRequire.defineConstructor( function load( dir, opts, depth ) {","    var Instance = this;","","    depth = depth + 1 || 0;","","    opts = _extend({","      'duplicates': false,","      'recurse': true,","      'ignoreDotFiles': true,","      'depth': 5,","      'ignore': [ '.svn', '.git', '.DS_Store' ],","      'extensions': Object.keys( require.extensions ),","      'logger': undefined","    }, opts );","","    // Ensure Extensions are Always in Array Form","    opts.extensions = typeof opts.extensions === 'string' ? [ opts.extensions ] : opts.extensions;","    opts.ignore = typeof opts.ignore === 'string' ? [ opts.ignore ] : opts.ignore;","","    var files = [];","","    try {","","      // resolve the path to an absolute one:","      dir = require( 'path' ).resolve( dir );","      files = require( 'fs' ).readdirSync( dir );","","      if( !files.length ) {","        throw new Error( 'No files found.' )","      }","","    } catch( error ) {","","      if( error.code === 'ENOENT' ) {","","        if( opts.logger &amp;&amp; opts.logger.error ) {","          opts.logger.error( error.message );","        }","","        return;","","      }","","    }","","    var filesForBase = {};","","    for( var i = 0; i &lt; files.length; i++ ) {","      var file = files[i];","","      var ext = require( 'path' ).extname( file );","      var base = require( 'path' ).basename( file, ext );","","      // Only Get Selected File Extensions","      if( ext &amp;&amp; opts.extensions.indexOf( ext ) &lt; 0 ) {","        continue;","      }","","      // Explicitly Exclude Specific File Names","      if( base &amp;&amp; opts.ignore.indexOf( base ) &gt; -1 ) {","        continue;","      }","","      // Skip \"dot\" files","      if( opts.ignoreDotFiles &amp;&amp; require( 'path' ).basename( base )[0] === '.' ) {","        continue;","      }","","      filesForBase[base] = filesForBase[base] || [];","","      if( filesForBase[base].push ) {","        filesForBase[base].push( file );","","      }","","    }","","    for( var base in filesForBase ) {","","      // protect against enumerable object prototype extensions:","      if( !filesForBase.hasOwnProperty( base ) ) {","        continue;","      }","","      var files = filesForBase[base];","      var filesMinusDirs = {};","","      for( var i = 0; i &lt; files.length; i++ ) {","        var file = files[i];","        var path = require( 'path' ).resolve( dir, file );","","        if( require( 'fs' ).statSync( path ).isDirectory() ) {","","          if( opts.recurse &amp;&amp; opts.depth &gt;= depth ) {","","            Instance[base] = model.load( path, opts, depth );","","            // if duplicates are wanted, key off the full name too:","            if( opts.duplicates ) {","              Instance[file] = Instance[base];","            }","          }","","        } else {","          filesMinusDirs[file] = path;","        }","      }","","      if( Instance[base] &amp;&amp; !opts.duplicates ) {","        continue;","      }","","      opts.extensions.forEach( function( ext ) {","","        if( !require.extensions.hasOwnProperty( ext ) ) {","          return;","        }","","        var file = base + ext;","        var path = filesMinusDirs[file];","","        if( path ) {","","          if( opts.duplicates ) {","","            Instance[file] = require( path );","","            if( !Instance[base] ) {","              Instance[base] = Instance[file];","            }","","          } else {","","            try {","              Instance[base] = require( path );","","            } catch ( error ) {","","              if( opts.logger &amp;&amp; opts.logger.error ) {","                opts.logger.error( error, path )","              }","","            }","","","          }","","          if( Instance[base] ) {","","            Object.defineProperties( Instance[base], {","              '__path': {","                'enumerable': false,","                'writable': true,","                'configurable': true,","                'value': require.resolve( path )","              },","              '__directory': {","                'enumerable': false,","                'configurable': true,","                'writable': true,","                'value': require( 'path' ).dirname( require.resolve( path ) )","              }","            });","","","          }","","        }","","      });","","    }","","    return Instance;","","  });","  ","});",""];

@@ -99,21 +99,25 @@
  */
 require( &#x27;abstract&#x27; ).createModel( module.exports = function advancedRequire( model, prototype ) {
 
-  advancedRequire.require( &#x27;util&#x27; );
+  // Construct Model only once.
+  if( module.loaded ) {
+    return advancedRequire;
+  }
 
-  // Configure module
-  advancedRequire.set( &#x27;create_method&#x27;, &#x27;load&#x27; );
+  // Private Modules.
+  var util        = require( &#x27;util&#x27; );
+  var inherits    = require( &#x27;util&#x27; ).inherits;
+  var _extend     = require( &#x27;util&#x27; )._extend;
+  var join_path   = require( &#x27;path&#x27; ).join;
+  var fs          = require( &#x27;fs&#x27; );
+  var include     = require( &#x27;include-all&#x27; );
 
   // Properties: Constructor
   advancedRequire.defineProperties( model, {
-    modules: function modules( dir, opts ) {
-      return model.load( dir, opts );
-    },
-    files: function files() {
-      return model.load( dir, opts );
-    },
-    monitor: function monitor() {
-      return model.load( dir, opts );
+    include: include,
+    realpath: function realpath() {
+      var _path = arguments.length &gt; 1 ? join_path.apply( {}, arguments ) : arguments[0];
+      return fs.realpathSync( _path );
     },
     watchTree: function watchTree( root, options, callback ) {
       return require( &#x27;watch&#x27; ).watchTree( root, options, callback );
@@ -123,17 +127,13 @@ require( &#x27;abstract&#x27; ).createModel( module.exports = function advancedR
     },
   });
 
-  advancedRequire.defineProperties( model.prototype, {
-    
-  });
-
   // Instance Constructor
-  model.defineConstructor( function load( dir, opts, depth ) {
+  advancedRequire.defineConstructor( function load( dir, opts, depth ) {
     var Instance = this;
 
     depth = depth + 1 || 0;
 
-    opts = advancedRequire._extend({
+    opts = _extend({
       &#x27;duplicates&#x27;: false,
       &#x27;recurse&#x27;: true,
       &#x27;ignoreDotFiles&#x27;: true,

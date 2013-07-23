@@ -1,6 +1,6 @@
 {
   "name": "advanced-require",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Require things in Node.js.",
   "author": {
     "name": "Usability Dynamics",
@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "abstract": "*",
+    "include-all": "*",
     "watch": "*",
     "lodash": "*",
     "object-settings": "*"
@@ -47,5 +48,5 @@
   "scripts": {
     "test": "make test"
   },
-  "readmeFilename": "Readme.md"
+  "readmeFilename": "readme.md"
 }
