@@ -29,17 +29,18 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/UsabilityDynamics/advanced-require.git"
+    "url": "https://github.com/UsabilityDynamics/node-advanced-require.git"
   },
   "bugs": {
-    "url": "https://github.com/UsabilityDynamics/advanced-require/issues"
+    "url": "https://github.com/UsabilityDynamics/node-advanced-require/issues"
   },
   "dependencies": {
     "abstract": "*",
+    "object-settings": "*",
     "include-all": "*",
     "watch": "*",
-    "lodash": "*",
-    "object-settings": "*"
+    "watchr": "*",
+    "lodash": "*"
   },
   "devDependencies": {
     "mocha": "*",
